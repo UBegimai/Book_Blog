@@ -31,8 +31,8 @@ class Book(models.Model):
     description = models.TextField()
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
     published = models.DateField()
-    image = models.ImageField(blank=True, null=True, upload_to='books')
-    genre = models.ManyToManyField(Genre)
+    image = models.ImageField(upload_to='books', blank=True, null=True)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='books')
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
