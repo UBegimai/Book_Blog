@@ -45,7 +45,7 @@ class BooksListView(ListView):
 class BookDetailView(DetailView):
     queryset = Book.objects.all()
     template_name = 'main/book-detail.html'
-    # context_object_name = 'book'
+
 
 
 

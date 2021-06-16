@@ -14,8 +14,10 @@
             <div class="row">
                 <div class="column large-12">
                     <h1 class="page-title">
-                        <span class="page-title__small-type">Genre</span>
-                        Lifestyle
+                        <span class="page-title__small-type"></span>
+                        {% for genre in genres %}
+                        {{ genre.name }}
+                        {% endfor %}
                     </h1>
                 </div>
             </div>
@@ -55,12 +57,13 @@
                                 <div class="entry__meta">
                                     <span class="byline">By:
                                         <span class='author'>
-                                            <a href="#0">me</a>
+                                            <a href="{% url 'book-detail' book.id %}">{{ book.author }}</a>
+                                        </span>
                                     </span>
-                                </span>
-                                    <span class="cat-links">
-                                        <a href="#">Health</a>
-                                        <a href="#">Vacation</a>
+                                    <span class="byline">Published:
+                                        <span class="cat-links">
+                                            <a href="{% url 'book-detail' book.id %}">{{ book.published }}</a>
+                                        </span>
                                     </span>
                                 </div>
                             </div>
@@ -109,14 +112,6 @@
 
     </section> <!-- end s-content -->
 
-    <form method="get">
-        <select name="tag">
-            <option value="new">Новинки</option>
-            <option value="interesting">Интересное</option>
-        </select>
-        <input type="date" name="created" />
-        <input type="submit" />
-    </form>
 
 
 {% endblock content %}

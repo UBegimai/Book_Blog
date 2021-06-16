@@ -104,12 +104,13 @@
                                 <div class="entry__meta">
                                     <span class="byline">By:
                                         <span class='author'>
-                                            <a href="#0">Harry Potter</a>
+                                            <a href="{% url 'book-detail' book.id %}">{{ book.author }}</a>
+                                        </span>
                                     </span>
-                                </span>
-                                    <span class="cat-links">
-                                        <a href="#">Health</a>
-                                        <a href="#">Vacation</a>
+                                    <span class="byline">Published:
+                                        <span class="cat-links">
+                                            <a href="{% url 'book-detail' book.id %}">{{ book.published }}</a>
+                                        </span>
                                     </span>
                                 </div>
                             </div>
