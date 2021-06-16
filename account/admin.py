@@ -1,7 +1,9 @@
+
 from django.contrib import admin
+from django.contrib.auth import get_user_model
 
-from main.models import Book, Genre, Author
 
-admin.site.register(Author)
-admin.site.register(Book)
-admin.site.register(Genre)
+
+User = get_user_model()
+
+admin.site.register(User)
