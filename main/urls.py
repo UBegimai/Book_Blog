@@ -7,8 +7,7 @@ urlpatterns = [
     path('books/<slug:genre>/', BooksListView.as_view(), name='books-list'),
     path('books/details/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
     path('create/', BookCreate.as_view(), name='create-book-url'),
-
-
+    path('update/<int:pk>/', BookUpdate.as_view(), name='update-book-url'),
 
 
 ]

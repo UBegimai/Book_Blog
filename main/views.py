@@ -2,7 +2,7 @@ import django_filters
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic import *
 
 from .forms import BookForm
@@ -37,6 +37,19 @@ class BookCreate(CreateView):
     queryset = Book.objects.all()
     template_name = 'main/create-book.html'
     form_class = BookForm
+
+
+class BookUpdate(UpdateView):
+    model = Book
+    template_name = 'main/update-book.html'
+    form_class = BookForm
+
+
+# class BookDelete(DeleteView):
+#     model = Book
+#     template_name =
+
+
 
 
 
