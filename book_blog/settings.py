@@ -84,8 +84,8 @@ WSGI_APPLICATION = 'book_blog.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'book_blog',
-        'USER': 'postgres',
+        'NAME': 'bookblog2',
+        'USER': 'vadim',
         'PASSWORD': '1',
         'HOST': 'localhost',
         'PORT': 5432

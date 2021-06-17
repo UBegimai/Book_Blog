@@ -57,3 +57,7 @@ class Comment(models.Model):
     def __str__(self):
         return self.comment_text
 
+class FavoriteBooks(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='favorites')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+

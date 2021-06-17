@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <div class="s-bricks s-bricks--half-top-padding">
+
+            <div class="masonry">
+                <div class="bricks-wrapper h-group">
+
+                    <div class="grid-sizer"></div>
+
+                    <div class="lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    {% for book in books %}
+                  <article class="brick entry" data-aos="fade-up">
+
+                        <div class="entry__thumb">
+                            {{book}}
+                            {{book.author}}
+                            {{book.genre}}
+                        </div> <!-- end entry__thumb -->
+
+                    </article> <!-- end article -->
+                    {% endfor %}
+
+                </div> <!-- end brick-wrapper -->
+
+            </div> <!-- end masonry -->
+
+        </div> <!-- end s-bricks -->
+
+</body>
+</html>
