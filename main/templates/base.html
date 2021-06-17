@@ -17,6 +17,7 @@
 
     <!-- CSS
     ================================================== -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/vendor.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 
@@ -71,7 +72,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#0" title="">My favorite books</a>
+                        <a href="{% url 'create-book-url' %}" title="">Add my favorite book</a>
                     </li>
                 </ul> <!-- end s-header__nav -->
 
@@ -121,35 +122,20 @@
 
                 <div class="column large-3 medium-6 tab-12 s-footer__info">
 
-                    <h5>About Our Site</h5>
+                    <h1>{{ book }}</h1>
+                        <p>{{ book.description|safe }}</p>
 
-                    <p>
-                    Lorem ipsum Ut velit dolor Ut labore id fugiat in ut
-                    fugiat nostrud qui in dolore commodo eu magna Duis
-                    cillum dolor officia esse mollit proident Excepteur
-                    exercitation nulla. Lorem ipsum In reprehenderit
-                    commodo aliqua irure.
-                    </p>
+                        {% if book.image %}
+                            <img src="{{ book.image.url }}">
+                        {% endif %}
+                        <p>{{ book.published }}</p>
+                        <p>
+                            {% for tag in book.tags.all %}
+                                <span>{{ tag.title }}</span>
+                            {% endfor %}
+                        </p>
 
                 </div> <!-- end s-footer__info -->
-
-                <div class="column large-2 medium-3 tab-6 s-footer__social-links">
-
-                    <h5>Follow Us</h5>
-
-                    <ul>
-                        <li><a href="#0">Twitter</a></li>
-                        <li><a href="#0">Facebook</a></li>
-                        <li><a href="#0">Instagram</a></li>
-                    </ul>
-
-                </div> <!-- end s-footer__social links -->
-
-                <div class="column large-3 medium-6 tab-12 s-footer__subscribe">
-
-                    <h5>CRUD</h5>
-
-                </div> <!-- end s-footer__subscribe -->
 
             </div> <!-- end row -->
 

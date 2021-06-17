@@ -44,7 +44,7 @@ class Book(models.Model):
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('detail', kwargs={'pk': self.pk})
+        return reverse('book-detail', kwargs={'pk': self.pk})
 
 
 class Comment(models.Model):

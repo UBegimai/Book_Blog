@@ -1,9 +1,11 @@
 import django_filters
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import modelformset_factory
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import *
-from django_filters import FilterSet
 
+from .forms import BookForm
 from .models import *
 
 class IndexPageView(View):
@@ -12,39 +14,31 @@ class IndexPageView(View):
         books = Book.objects.all()
         return render(request, 'main/index.html', locals())
 
-# class BooksFilterSet(FilterSet):
-#     author = django_filters.CharFilter('author__email',
-#                                        lookup_expr='iexact')
-#     created_at = django_filters.DateFilter('created_at',
-#                                            lookup_expr='gt')
-#
-#     class Meta:
-#         model = Book
-#         fields = ['tags', 'author']
-#
+
 class BooksListView(ListView):
     queryset = Book.objects.all()
     template_name = 'main/books-list.html'
     context_object_name = 'books'
     paginate_by = 3
-#
+
     def get_queryset(self):
         queryset = super().get_queryset()
         genre_id = self.kwargs.get('genre')
         return queryset.filter(genre_id=genre_id)
-#
-    # def get_context_object_name(self, *, object_list=None, **kwargs):
-    #     context = super().get_context_data()
-    #     filter = BooksFilterSet(self.request.GET,
-    #                             queryset = self.get_queryset())
-    #     context['filter'] = filter
-    #     return context
-#
 
-# #
+
 class BookDetailView(DetailView):
     queryset = Book.objects.all()
     template_name = 'main/book-detail.html'
+    context_object_name = 'book'
+
+
+class BookCreate(CreateView):
+    queryset = Book.objects.all()
+    template_name = 'main/create-book.html'
+    form_class = BookForm
+
+
 
 
 
