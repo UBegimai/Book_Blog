@@ -128,17 +128,17 @@
                         {% if book.image %}
                             <img src="{{ book.image.url }}">
                         <a href="{% url 'update-book-url' pk=book.pk %}"><i class="fas fa-edit"></i></a>
-
+                        <a href="{% url 'delete-book-url' pk=book.pk %}"><i class="fas fa-trash-alt"></i></a>
                         {% endif %}
                         <p>{{ book.published }}</p>
                         <p>
                             {% for tag in book.tags.all %}
                             {{ tag.title }}
-                            {% endfor %}
+
                         </p>
 
                 </div> <!-- end s-footer__info -->
-
+                {% endfor %}
             </div> <!-- end row -->
 
         </div> <!-- end s-footer__main -->

@@ -1,8 +1,8 @@
-import django_filters
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.forms import modelformset_factory
+
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import *
 
 from .forms import BookForm
@@ -45,9 +45,13 @@ class BookUpdate(UpdateView):
     form_class = BookForm
 
 
-# class BookDelete(DeleteView):
-#     model = Book
-#     template_name =
+class BookDelete(DeleteView):
+    model = Book
+    template_name = 'main/delete-book.html'
+
+    def get_success_url(self):
+        return reverse('home')
+
 
 
 
