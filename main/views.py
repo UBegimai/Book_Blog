@@ -1,7 +1,8 @@
 
 from django.contrib import messages
+from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import *
 
@@ -58,6 +59,30 @@ class BookDelete(DeleteView):
         return HttpResponseRedirect(success_url)
 
 
+
+class SearchResultsView(View):
+    def get(self, request):
+        q = request.GET.get('q', '')
+        if q:
+            books = Book.objects.filter(Q(title__icontains=q))
+        else:
+            books = Book.objects.none()
+        return render(request, 'main/search.html', {'books': books})
+
+
+class AddToFavList(View):
+    def get(self, request, pk):
+        book = get_object_or_404(Book, id=pk)
+        FavoriteBooks.objects.create(book=book, user=request.user)
+        return redirect('/ibook/fav_list/')
+
+
+class MyFavListView(View):
+    def get(self, request):
+        user = request.user
+        books_ids = user.favorites.values('book_id')
+        books = Book.objects.filter(id__in=books_ids)
+        return render(request, 'main/fav_list.html', context={'books': books})
 
 
 
