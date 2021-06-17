@@ -9,13 +9,9 @@
             {% if book.image %}
                 <img src="{{ book.image.url }}">
             {% endif %}
-            <a class="btn btn-danger" href="{}">
+            <button type="submit" name="button" class="btn btn-primary">
                 <i class="fa fa-trash-o fa-lg"></i>
-                Delete
-            </a>
-            <a href="{% url 'book-detail' book.id}">
-                <button type="submit" name="button" class="btn btn-primary">
-                Cancel</button>
-            </a>
+            Delete</button>
+
         </form>
 {% endblock %}

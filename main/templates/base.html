@@ -127,8 +127,13 @@
                         <p>{{ book.description|safe }}</p>
                         {% if book.image %}
                             <img src="{{ book.image.url }}">
-                        <a href="{% url 'update-book-url' pk=book.pk %}"><i class="fas fa-edit"></i></a>
-                        <a href="{% url 'delete-book-url' pk=book.pk %}"><i class="fas fa-trash-alt"></i></a>
+
+                        <a href="{% url 'update-book-url' pk=book.pk %}">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a href="{% url 'delete-book-url' pk=book.pk %}">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
                         {% endif %}
                         <p>{{ book.published }}</p>
                         <p>

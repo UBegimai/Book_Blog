@@ -19,7 +19,7 @@ class BooksListView(ListView):
     queryset = Book.objects.all()
     template_name = 'main/books-list.html'
     context_object_name = 'books'
-    paginate_by = 3
+    paginate_by = 4
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -48,9 +48,14 @@ class BookUpdate(UpdateView):
 class BookDelete(DeleteView):
     model = Book
     template_name = 'main/delete-book.html'
+    success_url = reverse_lazy('home')
 
-    def get_success_url(self):
-        return reverse('home')
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self.object.delete()
+        messages.add_message(request, messages.SUCCESS, 'Successfully deleted')
+        return HttpResponseRedirect(success_url)
 
 
 
