@@ -61,3 +61,7 @@ class Comment(models.Model):
     def __str__(self):
         return 'Comment by {} on {}'.format(self.author_name, self.book)
 
+class FavoriteBooks(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='favorites')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favorites')
+

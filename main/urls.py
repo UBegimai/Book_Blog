@@ -10,6 +10,9 @@ urlpatterns = [
     path('update/<int:pk>/', BookUpdate.as_view(), name='update-book-url'),
     path('delete/<int:pk>/', BookDelete.as_view(), name='delete-book-url'),
     path('comment/<int:pk>/', book_detail, name='comment-add'),
+    path('search/', SearchResultsView.as_view(), name='search-results'),
+    path('add_to_fav/<int:pk>', AddToFavList.as_view(), name='add-to-fav-list'),
+    path('fav_list/', MyFavListView.as_view(), name='MyFavListView'),
 
 
 ]
