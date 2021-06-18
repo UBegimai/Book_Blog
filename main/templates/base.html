@@ -67,7 +67,7 @@
                         <a href="#0" title="">Genres</a>
                         <ul class="sub-menu">
                             {% for genre in genres %}
-                                <li><a href="{% url 'books-list' genre.slug %}">{{ genre }}</a></li>
+                                <li><a href="{% url 'books-list' genre.slug %}">{{ genre.name }}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -111,42 +111,31 @@
         </a>
 
     </header> <!-- end s-header -->
-
-    {% block content %}{% endblock content%}
+ {% block content %}{% endblock content%}
 
    <!-- footer
     ================================================== -->
-    <footer class="s-footer">
 
-        <div class="s-footer__main">
 
-            <div class="row">
+    <div class="column large-3 medium-6 tab-12 s-footer__info">
+        <h1>{{ book }}</h1>
+            <p>{{ book.description }}</p>
+            {% if book.image %}
+                <img src="{{ book.image.url }}">
+                <div>
+                    <a href="{% url 'update-book-url' pk=book.pk %}">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a href="{% url 'delete-book-url' pk=book.pk %}">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                </div>
+            {% endif %}
 
-                <div class="column large-3 medium-6 tab-12 s-footer__info">
-                    <h1>{{ book }}</h1>
-                        <p>{{ book.description|safe }}</p>
-                        {% if book.image %}
-                            <img src="{{ book.image.url }}">
 
-                        <a href="{% url 'update-book-url' pk=book.pk %}">
-                            <i class="fas fa-edit"></i>
-                        </a>
-                        <a href="{% url 'delete-book-url' pk=book.pk %}">
-                            <i class="fas fa-trash-alt"></i>
-                        </a>
-                        {% endif %}
-                        <p>{{ book.published }}</p>
-                        <p>
-                            {% for tag in book.tags.all %}
-                            {{ tag.title }}
+    </div> <!-- end s-footer__info -->
 
-                        </p>
 
-                </div> <!-- end s-footer__info -->
-                {% endfor %}
-            </div> <!-- end row -->
-
-        </div> <!-- end s-footer__main -->
 
         <div class="s-footer__bottom">
             <div class="row">
@@ -164,7 +153,6 @@
             </div> <!-- end ss-go-top -->
         </div> <!-- end s-footer__bottom -->
 
-   </footer> <!-- end s-footer -->
 
 
     <!-- Java Script

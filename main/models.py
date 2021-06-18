@@ -52,8 +52,12 @@ class Comment(models.Model):
                              related_name='comment')
     author_name = models.CharField(max_length=50)
     comment_text = models.TextField()
-    published = models.DateTimeField(auto_now_add=True, blank=True)
+    published = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ('published', )
 
     def __str__(self):
-        return self.comment_text
+        return 'Comment by {} on {}'.format(self.author_name, self.book)
 

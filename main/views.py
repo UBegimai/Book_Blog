@@ -1,12 +1,42 @@
 
 from django.contrib import messages
+from django.core import paginator
+from django.core.paginator import Paginator
+from django.db.models import Q
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import *
 
-from .forms import BookForm
+from .forms import BookForm, CommentForm
 from .models import *
+
+def books_list(request):
+    page_number = request.GET.get('page', 1)
+    page = paginator.get_page(page_number)
+
+    is_paginated = page.has_other_pages()
+
+    if page.has_previous():
+        prev_url = '?page={}'.format(page.previous_page_number())
+    else:
+        prev_url = ''
+
+    if page.has_next():
+        next_url = '?page={}'.format(page.next_page_number())
+    else:
+        next_url = ''
+
+    context = {
+        'page_object': page,
+        'is_paginated': is_paginated,
+        'next_url': next_url,
+        'prev_url': prev_url
+    }
+
+
+    return render(request, 'main/index.html', context=context)
+
 
 class IndexPageView(View):
     def get(self, request):
@@ -57,6 +87,28 @@ class BookDelete(DeleteView):
         messages.add_message(request, messages.SUCCESS, 'Successfully deleted')
         return HttpResponseRedirect(success_url)
 
+def book_detail(request, pk):
+    book = get_object_or_404(Book, id=pk)
+    # List of active comments for this book
+    comments = book.comment.filter(active=True)
+
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current book to the comment
+            new_comment.book = book
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    return render(request,
+                  'main/comment-add.html',
+                  {'book': book,
+                   'comments': comments,
+                   'comment_form': comment_form})
 
 
 
@@ -74,28 +126,3 @@ class BookDelete(DeleteView):
 
 
 
-
-
-
-
-
-# class PostDetail(ObjectDetailMixin, View):
-#     model = Post
-#     template = 'blog/post_detail.html'
-#
-# class PostCreate(LoginRequiredMixin, ObjectCreateMixin, View):
-#     model_form = PostForm
-#     template = 'blog/post_create_form.html'
-#     raise_exception = True
-#
-# class PostUpdate(LoginRequiredMixin, ObjectUpdateMixin, View):
-#     model = Post
-#     model_form = PostForm
-#     template = 'blog/post_update_form.html'
-#     raise_exception = True
-#
-# class PostDelete(LoginRequiredMixin, ObjectDeleteMixin, View):
-#     model = Post
-#     template = 'blog/post_delete_form.html'
-#     redirect_url = 'posts_list_url'
-#     raise_exception = True

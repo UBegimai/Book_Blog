@@ -120,7 +120,11 @@
                                 </p>
                             </div>
                             <a class="entry__more-link" href="{% url 'book-detail' book.id %}">Read More</a>
-                        </div> <!-- end entry__text -->
+                            <div>
+                                <a href="{% url 'comment-add' book.id %}"><i class="fa fa-comment" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+
 
                     </article> <!-- end article -->
                     {% endfor %}

@@ -1,9 +1,8 @@
-from datetime import datetime
 
-from ckeditor.widgets import CKEditorWidget
+
 from django import forms
 
-from main.models import Book
+from .models import Book, Comment
 
 
 class BookForm(forms.ModelForm):
@@ -12,4 +11,9 @@ class BookForm(forms.ModelForm):
         model = Book
         fields = ['title', 'description', 'author', 'published',
                   'image', 'genre', 'tags']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('author_name', 'comment_text')
 
